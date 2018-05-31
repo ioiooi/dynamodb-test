@@ -1,17 +1,27 @@
 # Playing around with DynamoDB
 
+## Links
+
 [Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
 
 [AWS SDK - DynamoDB](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html)
 
-## [Node.js and DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.NodeJs.html)
+[Node.js and DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.NodeJs.html)
 
-### [DocumentClient](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html)
+## Local DynamoDB ([link](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html))
+
+Requirements: JRE
+
+Download: [`.tar.gz`](https://s3.eu-central-1.amazonaws.com/dynamodb-local-frankfurt/dynamodb_local_latest.tar.gz) | [`.zip`](https://s3.eu-central-1.amazonaws.com/dynamodb-local-frankfurt/dynamodb_local_latest.zip)
+
+Command: `java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb`  
+Default port is 8000.
+
+## DocumentClient ([link](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html))
 
 > The document client simplifies working with items in Amazon DynamoDB by abstracting away the notion of attribute values.
 
-Example:
-
+Example:  
 Getting a Movie without DocumentClient
 
 ```js

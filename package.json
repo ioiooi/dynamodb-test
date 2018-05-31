@@ -4,11 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node server/app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Eugen Mayer",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.247.1"
+    "aws-sdk": "^2.247.1",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3"
   }
 }
