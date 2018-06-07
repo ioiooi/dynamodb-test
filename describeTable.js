@@ -18,9 +18,6 @@ dynamodb.describeTable(params, (err, data) => {
       JSON.stringify(err, null, 2)
     );
   } else {
-    console.log(
-      'DescribeTable:',
-      JSON.stringify(data, null, 2)
-    );
+    console.log('DescribeTable:', JSON.stringify(data, null, 2));
   }
 });

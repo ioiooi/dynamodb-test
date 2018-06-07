@@ -1,37 +1,36 @@
 const express = require('express');
 const router = express.Router();
-const dyndb = require('../models/index');
+const dyndb = require('../database');
 
 router.get('/', (req, res, next) => {
-  const params = {
-    TableName: 'Movies',
-    Key: {
+  dyndb
+    .get({
       year: parseInt(req.query.year),
       title: req.query.title
-    }
-  };
-
-  dyndb.get(params, (err, data) => {
-    if (err) next(err);
-    res.json(data);
-  });
+    })
+    .then(data => res.json(data))
+    .catch(err => next(err));
 });
 
-router.post('/', (req, res) => {
-  const params = {
-    TableName: 'Movies',
-    Item: req.body
-  };
+router.post('/', (req, res, next) => {
+  dyndb
+    .put(req.body)
+    .then(data => res.json(data))
+    .catch(err => next(err));
+});
 
-  dyndb.put(params, (err, data) => {
-    if (err) {
-      res.json({
-        error: JSON.stringify(err, null, 2)
-      });
-    } else {
-      res.json({ 'Added item': JSON.stringify(data, null, 2) });
-    }
-  });
+router.patch('/', (req, res, next) => {
+  dyndb
+    .update(req.body)
+    .then(data => res.json(data))
+    .catch(err => next(err));
+});
+
+router.delete('/', (req, res, next) => {
+  dyndb
+    .delete(req.body)
+    .then(data => res.json({ deleted_item: data }))
+    .catch(err => next(err));
 });
 
 module.exports = router;
