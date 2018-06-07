@@ -89,3 +89,19 @@ const params = {
 ```
 
 Some operations, like `DeleteItem`, do not recognize all `ReturnValues`.
+
+## Prevent Item from being overwritten when using `update()` or `putItem()`
+
+`ConditionExpression` and using `attribute_not_exists` on the partition and/or sort key.  
+Careful when using a [reserved keywords](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html) as the partition/sort key because in that case `attribute_not_exists` wont work as expected. Working around that issue by using [`ExpressionAttributeNames`](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ExpressionAttributeNames.html).
+
+Example with both the partition and sort key being words from the reserved list:  
+Table `Vacation` with parition key `year` and sort key `location`.
+
+```js
+const params = {
+  TableName: 'Vacation',
+  ConditionExpression: 'attribute_not_exists(#y) AND attribute_not_exists(#l)',
+  ExpressionAttributeNames: { '#y': 'year', '#l': 'location' }
+};
+```
