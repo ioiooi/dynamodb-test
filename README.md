@@ -73,3 +73,19 @@ The document types are list and map. They can be nested within each other, up to
 | List  | L          | Ordered collection of values. Enclosed in `[ ... ]`. No restriction on data types.       |
 | Map   | M          | Unordered collection of name-value pairs. Enclosed in `{ ... }`. Similar to JSON object. |
 | Sets  | SS, NS, BS | A set can represent multiple scalar values. The set types are string, number and binary. |
+
+## Return Value
+
+Display the previous Item, the current Item with updated values, consumed Capacity or CollectionMetrics etc...  
+Some operations return an empty `data` object if none of the following properties are provided with a value other than `'NONE'`.
+
+```js
+const params = {
+  ...
+  ReturnValues: 'NONE' | 'ALL_OLD' | 'UPDATED_OLD' | 'ALL_NEW' | 'UPDATED_NEW',
+  ReturnConsumedCapacity: 'INDEXES' | 'TOTAL' | 'NONE',
+  ReturnItemCollectionMetrics: 'SIZE' | 'NONE'
+}
+```
+
+Some operations, like `DeleteItem`, do not recognize all `ReturnValues`.
