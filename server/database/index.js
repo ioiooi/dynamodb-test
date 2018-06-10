@@ -4,10 +4,11 @@ const db = {};
 
 AWS.config.update(config);
 const docClient = new AWS.DynamoDB.DocumentClient();
+const TableName = 'Movies';
 
 db['get'] = params => {
   const o = {
-    TableName: 'Movies',
+    TableName,
     Key: params
   };
 
@@ -21,7 +22,7 @@ db['get'] = params => {
 
 db['put'] = params => {
   const o = {
-    TableName: 'Movies',
+    TableName,
     Item: params,
     ConditionExpression:
       'attribute_not_exists(#y) AND attribute_not_exists(title)',
@@ -39,7 +40,7 @@ db['put'] = params => {
 
 db['update'] = params => {
   const o = {
-    TableName: 'Movies',
+    TableName,
     ...params
   };
 
@@ -53,7 +54,7 @@ db['update'] = params => {
 
 db['delete'] = params => {
   const o = {
-    TableName: 'Movies',
+    TableName,
     Key: params,
     ReturnValues: 'ALL_OLD'
   };
