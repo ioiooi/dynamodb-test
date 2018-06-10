@@ -17,6 +17,8 @@ Download: [`.tar.gz`](https://s3.eu-central-1.amazonaws.com/dynamodb-local-frank
 Command: `java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb`  
 Default port is 8000.
 
+**OR** use the [docker image](https://hub.docker.com/r/cnadiminti/dynamodb-local/)
+
 ## DocumentClient ([link](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html))
 
 > The document client simplifies working with items in Amazon DynamoDB by abstracting away the notion of attribute values.
