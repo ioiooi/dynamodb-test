@@ -76,6 +76,18 @@ The document types are list and map. They can be nested within each other, up to
 | Map   | M          | Unordered collection of name-value pairs. Enclosed in `{ ... }`. Similar to JSON object. |
 | Sets  | SS, NS, BS | A set can represent multiple scalar values. The set types are string, number and binary. |
 
+## Update an Item
+
+> To update an existing item in a table, you use the `UpdateItem` operation. You must provide the `key` of the item you want to update. You must also provide an update expression, indicating the attributes you want to modify and the values you want to assign to them.
+
+IDK if there is a shorthand method... so in order to update an item the following properties have to be provided
+
+- `UpdateExpression` - Declare `set`, `remove`, `add` and `delete` operations on one or multiple properties of an item.
+- `ExpressionAttributeNames` (Optional) - Map the `<hashtag>var` used in the update expression to the actual property name
+- `ExpressionAttributeValues` - Map the `<colon>var` used in the update expression to the actual value
+
+Links: [Update Expression](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.UpdateExpressions.html#Expressions.UpdateExpressions.SET.AddingNestedMapAttributes), [Conditional Update](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.NodeJs.03.html#GettingStarted.NodeJs.03.05), [Expression Attribute Names](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ExpressionAttributeNames.html) and [DocClient Reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#update-property)
+
 ## Return Value
 
 Display the previous Item, the current Item with updated values, consumed Capacity or CollectionMetrics etc...  
