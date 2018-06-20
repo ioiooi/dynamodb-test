@@ -1,12 +1,11 @@
 const AWS = require('aws-sdk');
 const config = require('./config')[process.env.NODE_ENV || 'development'];
-const db = {};
 
 AWS.config.update(config);
 const docClient = new AWS.DynamoDB.DocumentClient();
 const TableName = 'Movies';
 
-db['get'] = params => {
+const get = params => {
   const o = {
     TableName,
     Key: params
@@ -20,7 +19,7 @@ db['get'] = params => {
   });
 };
 
-db['put'] = params => {
+const put = params => {
   const o = {
     TableName,
     Item: params,
@@ -29,7 +28,6 @@ db['put'] = params => {
     ExpressionAttributeNames: { '#y': 'year' }
   };
 
-  console.log(o);
   return new Promise((resolve, reject) => {
     docClient.put(o, (err, data) => {
       if (err) reject(err);
@@ -38,10 +36,12 @@ db['put'] = params => {
   });
 };
 
-db['update'] = params => {
+const update = (key, values) => {
   const o = {
     TableName,
-    ...params
+    Key: key,
+    ...values,
+    ReturnValues: 'ALL_NEW'
   };
 
   return new Promise((resolve, reject) => {
@@ -52,7 +52,7 @@ db['update'] = params => {
   });
 };
 
-db['delete'] = params => {
+const deleteItem = params => {
   const o = {
     TableName,
     Key: params,
@@ -67,4 +67,9 @@ db['delete'] = params => {
   });
 };
 
-module.exports = db;
+module.exports = {
+  get,
+  put,
+  update,
+  delete: deleteItem
+};

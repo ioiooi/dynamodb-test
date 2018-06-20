@@ -19,9 +19,9 @@ router.post('/', (req, res, next) => {
     .catch(err => next(err));
 });
 
-router.patch('/', (req, res, next) => {
+router.put('/', (req, res, next) => {
   dyndb
-    .update(req.body)
+    .update(req.body[0], req.body[1])
     .then(data => res.json(data))
     .catch(err => next(err));
 });
