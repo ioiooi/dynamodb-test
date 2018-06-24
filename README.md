@@ -88,6 +88,44 @@ IDK if there is a shorthand method... so in order to update an item the followin
 
 Links: [Update Expression](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.UpdateExpressions.html#Expressions.UpdateExpressions.SET.AddingNestedMapAttributes), [Conditional Update](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.NodeJs.03.html#GettingStarted.NodeJs.03.05), [Expression Attribute Names](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ExpressionAttributeNames.html) and [DocClient Reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#update-property)
 
+## Adding/Removing a value to a Set using the DocumentClient
+
+```js
+{
+  Colors: ['red', 'green'];
+}
+```
+
+Would create a `Colors` List with two strings and not a String Set.
+To create a `Set` using the DocumentClient requires the use of the DocumentClient [`createSet()`](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#createSet-property) method.
+
+### Example: create a new Item with Colors String Set
+
+```js
+const docClient = new AWS.DynamoDB.DocumentClient();
+const params = {
+  TableName: 'Test',
+  Key: { id: 1 },
+  Colors: docClient.createSet(['red'])
+};
+docClient.get(params, (err, data) => {});
+```
+
+### Example: add a new Color to the Colors SS
+
+```js
+const params = {
+  TableName: 'Test',
+  Key: { id: 1 },
+  UpdateExpression: 'add Colors :c',
+  AttributeExpressionValue: {
+    ':c': docClient.createSet(['blue'])
+  }
+};
+```
+
+Removing a value from a `Set` is analogue to adding one instead of using `add`, use `delete` in the `UpdateExpression`.
+
 ## Return Value
 
 Display the previous Item, the current Item with updated values, consumed Capacity or CollectionMetrics etc...  
